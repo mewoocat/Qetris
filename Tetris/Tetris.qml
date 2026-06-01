@@ -43,7 +43,11 @@ QtObject {
     function resetGameGrid() {
         for (let y = 0; y < root.gridRows; y++) {
             for (let x = 0; x < root.gridColumns; x++) {
-                if (gameGrid[y][x]) gameGrid[y][x].destroy()
+                if (gameGrid[y][x]) {
+                    console.log(`block item: ${gameGrid[y][x]}`)
+                    gameGrid[y][x].destroy()
+                    gameGrid[y][x] = null
+                }
             }
         }
     }
