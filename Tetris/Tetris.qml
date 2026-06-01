@@ -40,6 +40,14 @@ QtObject {
         return grid
     }
 
+    function resetGameGrid() {
+        for (let y = 0; y < root.gridRows; y++) {
+            for (let x = 0; x < root.gridColumns; x++) {
+                if (gameGrid[y][x]) gameGrid[y][x].destroy()
+            }
+        }
+    }
+
     function printGrid() {
         console.log("PRINTING GRID///////////////////////////////////////////////////")
         for (let y = 0; y < root.gridRows; y++) {
@@ -70,6 +78,19 @@ QtObject {
 
     function reset() {
         console.log(`Resetting tetris`)
+        isPaused = false
+        isGameover = false
+        isRunning = false
+        timer.running = false
+        if (activeShape) {
+          activeShape.blocks.forEach(block => block.destroy())
+          activeShape.destroy()
+        }
+        if (nextShape) {
+          nextShape.blocks.forEach(block => block.destroy())
+          nextShape.destroy()
+        }
+        resetGameGrid()
     }
 
     function createShape() {
