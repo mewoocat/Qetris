@@ -3,8 +3,8 @@ import "../"
 Shape {
     id: root
     style: BlockStyle {
-        color: "orange"
-        borderColor: "orange"
+        color: "red"
+        borderColor: "tomato"
     }
     orientations: [
         [

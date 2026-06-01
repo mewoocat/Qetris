@@ -17,6 +17,7 @@ QtObject {
 
     property bool isRunning: false
     property bool isPaused: false
+    property bool isGameover: false
     property int score: 0
 
     property list<string> shapes: ["O", "T", "L", "S", "Z", "J", "I"]
@@ -81,6 +82,7 @@ QtObject {
             console.debug(`generating shape index`)
             shapeIndex = Math.floor(Math.random() * root.shapes.length)
         }
+        lastShapeIndex = shapeIndex
 
         // Get shape component by relative path
         const shapeComponent = `Shapes/${root.shapes[shapeIndex]}.qml`
@@ -94,6 +96,7 @@ QtObject {
         console.log(`game over`)
         timer.running = false
         root.isRunning = false
+        root.isGameover = true
     }
 
     // TODO: have generic createBlocks method that gets called here for the active and next shapes 
@@ -170,8 +173,8 @@ QtObject {
                 yPos: yPos,
                 size: root.blockSize,
                 style: blockStyleComp.createObject(null, {
-                    color: root.activeShape.style.color,
-                    borderColor: root.activeShape.style.borderColor,
+                    color: root.nextShape.style.color,
+                    borderColor: root.nextShape.style.borderColor,
                 })
             })
 

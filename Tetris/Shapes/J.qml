@@ -2,8 +2,8 @@ import "../"
 
 Shape {
     style: BlockStyle {
-        color: "pink"
-        borderColor: "pink"
+        color: "crimson"
+        borderColor: "blueviolet"
     }
     orientations: [
         [

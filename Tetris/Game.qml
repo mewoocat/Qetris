@@ -59,6 +59,20 @@ Rectangle {
         }
 
         Rectangle {
+            id: gameoverOverlay
+            visible: root.tetris.isGameover
+            anchors.fill: gameBoard
+            color: "transparent"
+            WrapperRectangle {
+                anchors.centerIn: parent
+                margin: 2
+                Text {
+                    text: "Gameover"
+                }
+            }
+        }
+
+        Rectangle {
             id: sidePanel
             anchors.left: gameBoard.right
             implicitHeight: gameBoard.height

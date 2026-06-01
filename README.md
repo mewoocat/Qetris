@@ -6,7 +6,7 @@ Import the `Tetris/` directory and use `Game {}` to create an instance.
 
 ```qml
 import "path/to/Tetris/" as Tetris
-
+...
 Tetris.Game {}
 ```
 
