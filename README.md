@@ -1,6 +1,7 @@
 # Qetris
 Tetris but in Qml.  Made with Quickshell, QtQuick and <3.
-![Screenshot](https://github.com/mewoocat/Qetris/blob/main/screenshot.png)
+
+[Screenshot](https://github.com/mewoocat/Qetris/blob/main/screenshot.png)
 
 # Usage
 Import the `Tetris/` directory and use `Game {}` to create an instance.
