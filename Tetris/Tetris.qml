@@ -64,20 +64,19 @@ QtObject {
     }
 
     function start() {
-        console.log(`Starting tetris state singleton`)
+        console.log(`Starting tetris`)
+        isRunning = true
         // Add shape if game is first starting
         if (!root.isPaused) {
-            root.isRunning = true
             root.spawnShape()
         }
-        Tetris.isPaused = false
-        timer.running = true
+        isPaused = false
     }
 
     function pause() {
         console.log(`Pausing tetris`)
-        Tetris.isPaused = true
-        timer.running = false
+        isPaused = true
+        isRunning = false
     }
 
     function reset() {
@@ -85,7 +84,6 @@ QtObject {
         isPaused = false
         isGameover = false
         isRunning = false
-        timer.running = false
         if (activeShape) {
           activeShape.blocks.forEach(block => block.destroy())
           activeShape.destroy()
@@ -119,7 +117,6 @@ QtObject {
 
     function gameOver() {
         console.log(`game over`)
-        timer.running = false
         root.isRunning = false
         root.isGameover = true
     }
@@ -211,7 +208,7 @@ QtObject {
 
     property Timer clock: Timer {
         id: timer
-        running: false
+        running: root.isRunning
         triggeredOnStart: false
         interval: 1000
         repeat: true
