@@ -160,7 +160,8 @@ QtObject {
                 xPos: xPos,
                 yPos: yPos,
                 size: root.blockSize,
-                // Need to create a copy of the style so that when the shape is destroyed, we still hold the style data here.
+                // Need to create a copy of the style so that when the shape is destroyed, we still hold 
+                // the style data here for any of it's remaining blocks
                 style: blockStyleComp.createObject(null, {
                     color: root.activeShape.style.color,
                     borderColor: root.activeShape.style.borderColor,
@@ -178,7 +179,6 @@ QtObject {
                 return
             }
         })
-
 
         // Render next shape
         // For each block within the shape

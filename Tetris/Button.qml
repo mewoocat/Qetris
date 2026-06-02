@@ -17,7 +17,7 @@ MouseArea {
     Rectangle {
         id: background
         anchors.fill: parent
-        color: root.containsMouse ? "dimgrey" : "grey"
+        color: root.containsMouse ? "black" : "grey"
         Text {
             anchors.centerIn: parent
             text: root.text

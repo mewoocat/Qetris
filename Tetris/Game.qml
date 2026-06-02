@@ -4,25 +4,25 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell.Widgets
 
-Rectangle {
+Item {
     id: root
     anchors.fill: parent
-    color: "black"
 
-    property int blockSize: 14
+    property int blockSize: gameBoard.height / tetris.gridRows
+    Component.onCompleted: {
+        console.debug(`blockSize: ${blockSize}`)
+        console.debug(`height: ${height}`)
+    }
 
     property Tetris tetris: Tetris {
-        blockSize: blockSize
+        blockSize: root.blockSize
     }
 
     Rectangle {
         id: controlBoard
-        anchors.centerIn: parent
-        implicitHeight: gameBoard.implicitHeight
-        implicitWidth: gameBoard.implicitWidth + sidePanel.implicitWidth
-        color: "transparent"
+        anchors.fill: parent
+        color: "red"//controlBoard.focus ? "deepskyblue" : "grey"
         onVisibleChanged: root.tetris.pause()
-
         onFocusChanged: console.log(`controlBoard focus changed to ${focus}`)
         Keys.onPressed: (event) => {
             console.log(`key event root`)
@@ -36,11 +36,14 @@ Rectangle {
         
         Rectangle {
             id: gameBoard
-            border.width: 1
-            border.color: controlBoard.focus ? "deepskyblue" : "grey"
-            color: "transparent"
+            color: "black"
+            anchors {
+                left: parent.left
+                top: parent.top
+                bottom: parent.bottom
+                margins: 50
+            }
             implicitWidth: root.tetris.blockSize * root.tetris.gridColumns
-            implicitHeight: root.tetris.blockSize * root.tetris.gridRows
             Component.onCompleted: root.tetris.gameBoard = gameBoard
         }
 
@@ -74,31 +77,62 @@ Rectangle {
 
         Rectangle {
             id: sidePanel
-            anchors.left: gameBoard.right
-            implicitHeight: gameBoard.height
+            anchors {
+                left: gameBoard.right
+                right: parent.right
+                top: parent.top
+                bottom: parent.bottom
+                margins: 8
+            }
             topRightRadius: 2
             bottomRightRadius: 2
-            color: "transparent"
+            color: "dimgray"
             implicitWidth: 80
             border.width: 1
             border.color: controlBoard.focus ? "deepskyblue" : "grey"
 
-            ColumnLayout {
-                anchors.horizontalCenter: parent.horizontalCenter
+            Item {
+                id: scoreBox
+                anchors {
+                    left: parent.left
+                    top: parent.top
+                    right: parent.right
+                    margins: 8
+                }
+                height: scoreText.height + scoreValueBox.height
                 Text {
+                    id: scoreText
+                    anchors.horizontalCenter: parent.horizontalCenter
                     color: "white"
                     text: `score`
+                    padding: 4
+                    font.bold: true
                 } 
-                WrapperRectangle { 
+                Rectangle { 
+                    id: scoreValueBox
                     color: "black"
-                    margin: 8
+                    anchors.top: scoreText.bottom
+                    implicitHeight: scoreText.height + 8
                     implicitWidth: parent.width
                     Text {
+                        anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.margins: 4
+                        id: scoreValue
                         color: "white"
                         text: `${root.tetris.score}`
                     }
                 }
+            }
+            ColumnLayout {
+                anchors {
+                    top: scoreBox.bottom
+                    left: parent.left
+                    right: parent.right
+                    margins: 8
+                }
                 Button {
+                    Layout.fillWidth: true
                     text: !root.tetris.isRunning || root.tetris.isPaused ? "start" : "pause" ;
                     onClicked: () => {
                         if (!root.tetris.isRunning || root.tetris.isPaused) {
@@ -114,16 +148,18 @@ Rectangle {
                 }
                 Button {
                     text: "reset"
+                    Layout.fillWidth: true
                     onClicked: () => root.tetris.reset()
                 }
             }
 
-            // Next shape display
             Rectangle {
-                anchors.bottomMargin: 6
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.bottom: parent.bottom
                 id: nextShapeBoard
+                anchors {
+                    margins: 8
+                    horizontalCenter: parent.horizontalCenter
+                    bottom: parent.bottom
+                }
                 color: "black"
                 implicitWidth: root.tetris.blockSize * 4
                 implicitHeight: root.tetris.blockSize * 4
