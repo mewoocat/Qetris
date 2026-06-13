@@ -21,7 +21,7 @@ Item {
     Rectangle {
         id: controlBoard
         anchors.fill: parent
-        color: "blue"//controlBoard.focus ? "deepskyblue" : "grey"
+        color: "grey"//controlBoard.focus ? "deepskyblue" : "grey"
         onVisibleChanged: root.tetris.pause()
         onFocusChanged: console.log(`controlBoard focus changed to ${focus}`)
         Keys.onPressed: (event) => {
