@@ -1,8 +1,8 @@
 import Quickshell
-import "Tetris/" as Tetris
+import "./Qetris"
 
 ShellRoot {
     FloatingWindow {
-        Tetris.Game {}
+        Game {}
     }
 }

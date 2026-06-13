@@ -1,0 +1,7 @@
+module Qetris
+Game 1.0 Game.qml
+Block 1.0 Block.qml
+BlockStyle 1.0 BlockStyle.qml
+Button 1.0 Button.qml
+Shape 1.0 Shape.qml
+Tetris 1.0 Tetris.qml
